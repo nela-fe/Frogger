@@ -31,7 +31,7 @@ class Enemy {
 
 class Player {
     constructor(x, y) {
-        this.sprite = 'images/char-cat-girl.png';
+        this.sprite = 'images/char-horn-girl.png';
         this.x = x;
         this.y = y;
     }
@@ -57,6 +57,10 @@ class Player {
         } else if(pressed == "down" && this.y <= 300){
             this.y += 83;
         }
+        console.log(this.x);
+        console.log(this.y);
+
+        console.log("Enemy1.speed: "+allEnemies[0].speed);
 
         if (this.y <=50){
             var myTimeout = setTimeout(function(){
@@ -66,13 +70,14 @@ class Player {
     }
 }
 
-
+// TODO: randomize intervals and speed for next enemy
+// more than one enemy per lane?
 const allEnemies = [
-    // passing x and y coordinates and speed
-    // TODO: random speed, random intervals
-    new Enemy(-100, 60, 20),
+    new Enemy(-100, 60, 20), // x, y, speed
     new Enemy(-100, 143, 40),
-    new Enemy(-100, 226, 80)
+    new Enemy(-100, 226, 80),
+
+
 ];
 
 const player = new Player(203, 383);
@@ -92,10 +97,67 @@ document.addEventListener('keyup', function(e) {
 });
 
 
-document.addEventListener('keyup', function(e){
-    if (e.keyCode == "s") {
-        console.log("s taste wurde gedrückt")
-        speed = 0;
-    }
+function checkCollisions(){
+    allEnemies.forEach(function(enemy) {
+        if(player.y == enemy.y - 9
+            && enemy.x > (player.x - 101)
+            && enemy.x < (player.x + 101)){
+                // stopEnemies();
+                console.log('gotcha!');
+                var myTimeout = setTimeout(function(){
+                    player.resetPlayer();
+                }, 200);
 
+                // reduce lives
+
+            }
+    });
+}
+
+
+/*
+// without for-loop
+function checkCollisions(){
+    // TODO: for loop...
+    if(player.y == allEnemies[0].y - 9
+        && allEnemies[0].x > (player.x - 101)
+        && allEnemies[0].x < (player.x + 101)){
+        stopEnemies();
+            console.log('erwischt!');
+            // console.log('allEnemies[0].x: '+allEnemies[0].x);
+            // console.log('player.x - 101: '+(player.x - 101)); //Nan..?
+            // console.log('player.x + 101: '+(player.x + 101)); // 203101 - Strings..?
+        }
+    }
+*/
+
+
+/*
+Enemies possible y:  60, 143, 226,
+Player possible y: (383, 300), 217, 134, 51, (32)
+--> Offset: 9
+
+Enemy[0]: 60 Player 51
+Enemy[1]: 143 Player 134
+Enemy[2] 226, Player 217
+*/
+
+
+// stop / start bugs for testing
+// TODO: start again
+function stopEnemies(){
+    allEnemies.forEach(function(enemy) {
+        // enemy1Speed = allEnemies[0].speed; // save value for starting again
+        // enemy2Speed = allEnemies[1].speed;
+        // enemy3Speed = allEnemies[2].speed;
+        enemy.speed = 0;
+    });
+}
+
+
+
+document.addEventListener('keyup', function(e){
+    if (e.keyCode == 83) {
+        stopEnemies()
+    }
 });
