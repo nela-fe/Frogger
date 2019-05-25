@@ -1,3 +1,8 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+
 body {
     text-align: center;
 }
@@ -15,7 +20,47 @@ display: flex;
     display: flex;
 
     }
-    .hearts {
-        flex-wrap: wrap;
+.hearts {
+    flex-wrap: wrap;
 
+}
+
+.popup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* display: none; */
     }
+
+.popup {
+    position: absolute;
+    height: 350px;
+    width: 400px;
+    background: white;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    /* display: none; */
+
+
+
+}
+
+.choice {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.choose {
+    /* justify-content: space-evenly; */
+    color: red;
+}
+
+.hide {
+
+    display: none;
+}

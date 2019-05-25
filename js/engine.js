@@ -146,7 +146,7 @@ var Engine = (function(global) {
         }
 
 
-        for (i= 0; i < 5; i++) {
+        for (i= 0; i < player.hearts; i++) {
             ctx.drawImage(Resources.get('images/heart_sm_pink.png'), i*35, 530);
           }
 
