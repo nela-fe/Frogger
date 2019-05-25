@@ -107,12 +107,19 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                // 'images/water-block.png',   // Top row is water
+                // 'images/stone-block.png',   // Row 1 of 3 of stone
+                // 'images/stone-block.png',   // Row 2 of 3 of stone
+                // 'images/stone-block.png',   // Row 3 of 3 of stone
+                // 'images/grass-block.png',   // Row 1 of 2 of grass
+                // 'images/grass-block.png'    // Row 2 of 2 of grass
+
+                'images/water-block_dark.png',   // Top row is water
+                'images/stone-block_dark.png',   // Row 1 of 3 of stone
+                'images/stone-block_dark.png',   // Row 2 of 3 of stone
+                'images/stone-block_dark.png',   // Row 3 of 3 of stone
+                'images/grass-block_dark.png',   // Row 1 of 2 of grass
+                'images/grass-block_dark.png'    // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 5,
@@ -137,6 +144,19 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
+
+
+        for (i= 0; i < 5; i++) {
+            ctx.drawImage(Resources.get('images/heart_sm_pink.png'), i*35, 530);
+          }
+
+        for (i= 0; i < player.stars; i++) {
+            ctx.drawImage(Resources.get('images/star_sm.png'), i*35, -25);
+          }
+
+
+
+
 
         renderEntities();
     }
@@ -169,12 +189,20 @@ var Engine = (function(global) {
      * all of these images are properly loaded our game will start.
      */
     Resources.load([
-        'images/stone-block.png',
-        'images/water-block.png',
-        'images/grass-block.png',
-        'images/enemy-bug.png',
-        'images/char-boy.png',
-        'images/char-horn-girl.png'
+
+        // 'images/stone-block.png',
+        // 'images/water-block.png',
+        // 'images/grass-block.png',
+        // 'images/enemy-bug.png',
+
+        'images/stone-block_dark.png',
+        'images/water-block_dark.png',
+        'images/grass-block_dark.png',
+        'images/enemy-bug_dark.png',
+
+        'images/char-horn-girl.png',
+        'images/heart_sm_pink.png',
+        'images/star_sm.png'
     ]);
     Resources.onReady(init);
 

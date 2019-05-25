@@ -1,6 +1,10 @@
+//////////////
+//  ENEMY   //
+//////////////
+
 class Enemy {
     constructor(x, y, speed) {
-        this.sprite = 'images/enemy-bug.png';
+        this.sprite = 'images/enemy-bug_dark.png';
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -13,27 +17,31 @@ class Enemy {
     // all computers.
 
     update(dt){
-        // TODO: randomize between ~ -500 and -100, randomize speed
+        // when bug has vanished to the right, it reappears from the left
+        // TODO: randomize between ~ -500 and -100
         if (this.x >= 500){
             this.x = -100;
         } else {
+        // TODO: randomize speed
         this.x += dt*this.speed;
         }
     }
-
 
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 }
 
-
+//////////////
+//  PLAYER  //
+//////////////
 
 class Player {
     constructor(x, y) {
         this.sprite = 'images/char-horn-girl.png';
         this.x = x;
         this.y = y;
+        this.stars = 0;
     }
 
     update(dt){
@@ -45,6 +53,7 @@ class Player {
 
     resetPlayer(){
         this.y = 383;
+
     }
 
     handleInput(pressed){
@@ -57,24 +66,43 @@ class Player {
         } else if(pressed == "down" && this.y <= 300){
             this.y += 83;
         }
-        console.log(this.x);
-        console.log(this.y);
+        // console.log(this.x);
+        // console.log(this.y);
 
-        console.log("Enemy1.speed: "+allEnemies[0].speed);
+        // console.log("Enemy1.speed: "+allEnemies[0].speed);
 
         if (this.y <=50){
             var myTimeout = setTimeout(function(){
                 player.resetPlayer();
+                player.addStars()
             }, 400);
         }
     }
+
+    addStars(){
+
+        if(this.stars < 3) {
+        // console.log("player has "+this.stars +" stars.");
+        this.stars++;
+        // console.log("player has "+this.stars +" stars.");
+        }
+
+        if(this.stars == 3){
+
+            console.log('you win!!');
+        }
+
+    }
+
 }
+
+
 
 // TODO: randomize intervals and speed for next enemy
 // more than one enemy per lane?
 const allEnemies = [
-    new Enemy(-100, 60, 20), // x, y, speed
-    new Enemy(-100, 143, 40),
+    new Enemy(-400, 60, 65), // x, y, speed
+    new Enemy(-200, 143, 45),
     new Enemy(-100, 226, 80),
 
 
@@ -97,67 +125,72 @@ document.addEventListener('keyup', function(e) {
 });
 
 
+// TODO: put this in either player or enemy?
+
+// loop over the enemies and check for each one whether enemy and player occupy the same space
+// condition is met when enemy x is larger than player x minus width of enemy (101)
+// and enemy x is smaller than player x plus player width (image 66, margin 17,5)
 function checkCollisions(){
     allEnemies.forEach(function(enemy) {
         if(player.y == enemy.y - 9
-            && enemy.x > (player.x - 101)
-            && enemy.x < (player.x + 101)){
-                // stopEnemies();
-                console.log('gotcha!');
+            && enemy.x > (player.x - 83)
+            && enemy.x < (player.x + 66)){ // works better than 83
+                // stopStartEnemies(); // doesn't do anything
+
+                // console.log('gotcha!');
                 var myTimeout = setTimeout(function(){
                     player.resetPlayer();
                 }, 200);
 
-                // reduce lives
+                // TODO: reduce lives
 
             }
     });
 }
 
-
 /*
-// without for-loop
-function checkCollisions(){
-    // TODO: for loop...
-    if(player.y == allEnemies[0].y - 9
-        && allEnemies[0].x > (player.x - 101)
-        && allEnemies[0].x < (player.x + 101)){
-        stopEnemies();
-            console.log('erwischt!');
-            // console.log('allEnemies[0].x: '+allEnemies[0].x);
-            // console.log('player.x - 101: '+(player.x - 101)); //Nan..?
-            // console.log('player.x + 101: '+(player.x + 101)); // 203101 - Strings..?
-        }
-    }
-*/
-
-
-/*
-Enemies possible y:  60, 143, 226,
-Player possible y: (383, 300), 217, 134, 51, (32)
+NOTES: Possible y-values:
+-----------------
+Player  Enemy
+383     -
+300     -
+217     226
+134     143
+51      60
+32      -
 --> Offset: 9
-
-Enemy[0]: 60 Player 51
-Enemy[1]: 143 Player 134
-Enemy[2] 226, Player 217
 */
 
 
-// stop / start bugs for testing
-// TODO: start again
-function stopEnemies(){
-    allEnemies.forEach(function(enemy) {
-        // enemy1Speed = allEnemies[0].speed; // save value for starting again
-        // enemy2Speed = allEnemies[1].speed;
-        // enemy3Speed = allEnemies[2].speed;
-        enemy.speed = 0;
-    });
+
+//TODO: put this into Enemy Class (?)
+
+
+// Start and stop enemies for testing
+
+let stop = false;
+let enemySpeeds = []
+
+
+function stopStartEnemies(){
+    if (stop == false) {
+        allEnemies.forEach(function(enemy){
+            enemySpeeds.push(enemy.speed);
+            enemy.speed = 0;
+        })
+        stop = true;
+
+    } else {
+        for (i = 0; i < allEnemies.length; i++){
+            allEnemies[i].speed = enemySpeeds[i];
+        }
+        enemySpeeds = [];
+        stop = false;
+    }
 }
 
-
-
 document.addEventListener('keyup', function(e){
-    if (e.keyCode == 83) {
-        stopEnemies()
+    if (e.keyCode == 83) { // 's'
+        stopStartEnemies()
     }
 });

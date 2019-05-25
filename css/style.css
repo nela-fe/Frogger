@@ -1,3 +1,21 @@
 body {
     text-align: center;
 }
+
+.stars-container {
+display: flex;
+
+}
+.stars {
+    flex-wrap: wrap;
+
+}
+
+.hearts-container {
+    display: flex;
+
+    }
+    .hearts {
+        flex-wrap: wrap;
+
+    }
