@@ -2,10 +2,37 @@
 
 ## Table of Contents
 
+- [Installing the game]
+- [Playing the game]
 - [Instructions](#instructions)
 - [Contributing](#contributing)
 
-## Instructions
+
+## Installing the game
+
+Download all files and save them into a folder on your computer.
+Open "index.html" in your browser.
+
+## Playing the game
+
+You are the little person standing on the grass at the bottom end of the playing field.
+
+Try to reach the water at the top.
+
+Use the arrow keys for controlling the player.
+
+Don't step on the bugs. When you run into a bug, the player is reset to the grass and you lose a life (heart).
+
+When you reach the water, you gain a star.
+
+When you have lost all hearts, you lose the game.
+
+When you have 5 stars, you win the game.
+
+
+
+
+## These were the original Instructions:
 
 Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
 
