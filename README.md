@@ -1,19 +1,23 @@
 # Classic Arcade Game Clone Project
 
+Project built for Udacity Front-End Web Developer Nanodegree
+
+Demo: https://nela-fe.github.io/frontend-nanodegree-arcade-game/
+
 ## Table of Contents
 
-- [Installing the game]
-- [Playing the game]
+- [Installing the game](#installing)
+- [Playing the game](#playing)
 - [Instructions](#instructions)
 - [Contributing](#contributing)
 
 
-## Installing the game
+## <a name="installing"/>Installing the game
 
 Download all files and save them into a folder on your computer.
 Open "index.html" in your browser.
 
-## Playing the game
+## <a name="playing"/>Playing the game
 
 You are the little person standing on the grass at the bottom end of the playing field.
 
